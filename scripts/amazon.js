@@ -53,34 +53,7 @@ products.forEach(product => {
   </div>`;
 })
 
-let cartProducts = [];
-function addToCart(quantity, prodIndex) {
-  const addProduct = {
-    image: products[prodIndex].image,
-    name: products[prodIndex].name,
-    priceCents: products[prodIndex].priceCents,
-    quantity: quantity,
-    deliveryDate: ''
-  }
-  cartProducts.push(addProduct)
-  console.log(cartProducts)
-}
-
-function getSelectQuantity(prodIndex){
-  const elements = document.querySelectorAll('.js-select-prod-quantity');
-  const elementsArray = Array.from(elements);
-  const selectElement = elementsArray.filter((element, index) => {
-    return index === prodIndex;
-  });
-  console.log('element', selectElement)
-  selectElement.addEventListener('change', ()=>{
-    const selectedValue = selectElement.value;
-    console.log('quantity', selectedValue)
-    return selectedValue;
-  })
-}
-
-//render all products
+//render all products 
 document.querySelector('.js-products-grid').innerHTML = productsHTML
 
 //add product to cart
@@ -103,6 +76,12 @@ document.querySelectorAll('.js-add-to-cart').forEach((button, index)=>{
         quantity:1
       })
     }
-    console.log('cart:', cart)
+
+    let cartQuantity = 0;
+    cart.forEach(item=>{
+      cartQuantity += item.quantity;
+    })
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity
   })
 })
